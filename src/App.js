@@ -17,6 +17,7 @@ import { load_user } from "./actions/auth";
 import { PersistGate } from "redux-persist/integration/react";
 
 import { store } from "./store";
+import Restaurant from "./containers/SharedComponents/Restaurant";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/restaurants" component={Restaurants} />
+            <Route exact path="/restaurants/:id" component={Restaurant} />
             <Route exact path="/:id" component={Account} />
           </Switch>
         </Layout>

@@ -3,6 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import { MainDiv } from "../../style/Restaurants";
 import { list_of_restaurants, add_to_cart } from "../../actions/shop";
 import { Modal, Button } from "antd";
+import { Link } from "react-router-dom";
 
 const Restaurants = ({ isAuthenticated, newestRestaurants, loading }) => {
   const dispatch = useDispatch();
@@ -58,7 +59,11 @@ const Restaurants = ({ isAuthenticated, newestRestaurants, loading }) => {
         newestRestaurants.map((restaurant) => {
           return (
             <div>
-              <h1>{restaurant.name}</h1>
+              <h1>
+                <Link to={`/restaurants/${restaurant.id}`}>
+                  {restaurant.name}
+                </Link>
+              </h1>
               {restaurant.item !== undefined &&
                 restaurant.item.map((item) => {
                   return (

@@ -11,6 +11,9 @@ import {
   ADD_TO_CART_LOADING,
   ADD_TO_CART_SUCCESS,
   ADD_TO_CART_FAIL,
+  RESTAURANT_DETAIL_LOADING,
+  RESTAURANT_DETAIL_LOADED_SUCCESS,
+  RESTAURANT_DETAIL_LOADED_FAIL,
 } from "./types";
 
 export const list_of_restaurants = () => async (dispatch) => {
@@ -28,6 +31,25 @@ export const list_of_restaurants = () => async (dispatch) => {
     console.log(err);
     dispatch({
       type: RESTAURANT_LOADED_FAIL,
+    });
+  }
+};
+
+export const restaurant_detail = (id) => async (dispatch) => {
+  const restaurant_detail_url = `http://localhost:8000/api${id}/`;
+  console.log(restaurant_detail_url);
+  dispatch({ type: RESTAURANT_DETAIL_LOADING });
+  try {
+    const res = await axios.get(restaurant_detail_url);
+    console.log(res);
+    dispatch({
+      type: RESTAURANT_DETAIL_LOADED_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: RESTAURANT_DETAIL_LOADED_FAIL,
     });
   }
 };
