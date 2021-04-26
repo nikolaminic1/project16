@@ -17,6 +17,9 @@ const Navbar = ({ logout, isAuthenticated }) => {
       <Menu.Item key="4">
         <NavLink to="/me">Account</NavLink>
       </Menu.Item>
+      <Menu.Item>
+        <NavLink to="/order-summary">Order summary</NavLink>
+      </Menu.Item>
     </Fragment>
   );
   const guestLinks = (

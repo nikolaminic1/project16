@@ -14,6 +14,9 @@ import {
   RESTAURANT_DETAIL_LOADING,
   RESTAURANT_DETAIL_LOADED_SUCCESS,
   RESTAURANT_DETAIL_LOADED_FAIL,
+  REFRESH_CART_LOADING,
+  REFRESH_CART_SUCCESS,
+  REFRESH_CART_FAIL,
 } from "./types";
 
 export const list_of_restaurants = () => async (dispatch) => {
@@ -56,7 +59,6 @@ export const restaurant_detail = (id) => async (dispatch) => {
 
 export const add_to_cart = (slug) => async (dispatch) => {
   dispatch({ type: ADD_TO_CART_LOADING });
-  console.log(localStorage.getItem("access"));
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -74,5 +76,33 @@ export const add_to_cart = (slug) => async (dispatch) => {
   } catch (err) {
     dispatch({ type: ADD_TO_CART_FAIL });
     console.log(err);
+  }
+};
+
+export const refresh_cart = () => async (dispatch) => {
+  dispatch({ type: REFRESH_CART_LOADING });
+
+  const cartURL = "http://localhost:8000/api/order-summary/";
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `JWT ${localStorage.getItem("access")}`,
+      Accept: "application/json",
+    },
+  };
+
+  try {
+    const res = await axios.get(cartURL, config);
+
+    dispatch({
+      type: REFRESH_CART_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: REFRESH_CART_FAIL,
+    });
   }
 };

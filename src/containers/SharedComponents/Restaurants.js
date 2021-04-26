@@ -56,18 +56,18 @@ const Restaurants = ({ isAuthenticated, newestRestaurants, loading }) => {
         </Fragment>
       )}
       {newestRestaurants !== undefined &&
-        newestRestaurants.map((restaurant) => {
+        newestRestaurants.map((restaurant, index) => {
           return (
-            <div>
+            <div key={index}>
               <h1>
                 <Link to={`/restaurants/${restaurant.id}`}>
                   {restaurant.name}
                 </Link>
               </h1>
               {restaurant.item !== undefined &&
-                restaurant.item.map((item) => {
+                restaurant.item.map((item, item_index) => {
                   return (
-                    <div>
+                    <div key={item_index}>
                       <h3>{item.title}</h3>
                       <h4>{item.description}</h4>
                       <h4>{item.price}</h4>
